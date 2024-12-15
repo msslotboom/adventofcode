@@ -24,10 +24,17 @@ fn main() {
             for _ in 0..numbers[i] { char_seq.push_str(&(".".to_string())) }
         }
     }
+    part1(&char_seq, &id_vec);
+}
 
-    let mut bw_pointer = char_seq.len();
+fn part2(char_seq: &String, id_vec: &Vec<u64>){
+    
+}
+
+fn part1(char_seq: &String, id_vec: &Vec<u64>){
     let mut id_sum: u64 = 0;
     let stop_index = char_seq.len() - char_seq.chars().filter(|&c| c == '.').count();
+    let mut bw_pointer = char_seq.len();
     'outer: for i in 0..stop_index{
         if char_seq.chars().nth(i).unwrap() == '.'{
             bw_pointer -= 1;
