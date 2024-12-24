@@ -1,4 +1,6 @@
 use std::fs;
+use std::thread;
+use std::time::Duration;
 
 #[derive(Debug)]
 struct Robot{
@@ -45,9 +47,13 @@ fn main() {
         let rob = Robot{pos, speed};
         robot_list.push(rob);
     }
-    for _ in 0..100{
+    for seconds in 1..100000{
         for robot in &mut robot_list{
             robot.update_pos();
+        }
+        if seconds % 101 == 13 {
+            println!("Iteration: {}", seconds);
+            print_grid(&robot_list);
         }
     }
     let mut q1 = 0;
@@ -74,4 +80,27 @@ fn main() {
     }
     let safety_factor = q1 * q2 * q3 * q4;
     println!("{}", safety_factor);
+}
+
+fn print_grid(robot_list: &Vec<Robot>){
+    for row_index in 0..103{
+        let mut printed_row: String = String::new();
+        for col_index in 0..101{
+            let mut counter = 0;
+            for robot in robot_list{
+                if robot.pos.0 == col_index && robot.pos.1 == row_index { counter += 1 }
+            }
+            if counter == 0 { printed_row.push('.')}
+            else if counter == 1 { printed_row.push('*') }
+            else if counter == 2 { printed_row.push('=') }
+            else if counter == 3 { printed_row.push('$') }
+            else {printed_row.push('~')}
+        }
+        println!("{:?}", printed_row);
+    }
+    println!();
+    println!();
+    println!();
+    println!();
+
 }
