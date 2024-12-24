@@ -1,6 +1,4 @@
 use std::fs;
-use std::thread;
-use std::time::Duration;
 
 #[derive(Debug)]
 struct Robot{
